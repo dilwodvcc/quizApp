@@ -44,10 +44,14 @@ class User extends DB
     public function getUser(String $email ,string $password): bool
     {
         $query = "SELECT * FROM users WHERE email = :email";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute(["email" => $email]);
+        $stmt = $this->conn
+            ->prepare($query);
+        $stmt->execute([
+            "email" => $email
+        ]);
         $user = $stmt->fetch();
         if ($user&&password_verify($password, $user->password)) {
+            $this->CreateApiToken($user->id);
             return true;
         }
         return false;

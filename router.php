@@ -1,8 +1,9 @@
 <?php
- use Sourse\Router;
+
+use Src\Router;
 
 
- if(Router::isApiCall()){
+if(Router::isApiCall()){
      require 'routers/api.php';
      exit();
  }

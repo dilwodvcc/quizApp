@@ -4,7 +4,7 @@ namespace App\Traits;
 
 trait HasApiTokens
 {
-    protected string $apiToken;
+    public string $apiToken;
     protected string $duration;
 
     public function createApiToken(int $userId): string

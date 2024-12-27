@@ -24,6 +24,9 @@ class DB
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
             ]
         );
+    }
+    public function getConnection(): PDO
+    {
         return $this->conn;
     }
 }

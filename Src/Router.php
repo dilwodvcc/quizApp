@@ -1,6 +1,6 @@
 <?php
 
-namespace Sourse;
+namespace Src;
 class Router{
     public string $currentRoute;
 

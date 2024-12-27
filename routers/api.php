@@ -1,10 +1,12 @@
 <?php
 
-use App\Controllers\UserController;
-use Sourse\Router;
+use App\Http\Controllers\QuizController;
+use App\Http\Controllers\UserController;
+use Src\Router;
 
-Router::post('/api/user',[UserController::class, 'store']);
-
+Router::post('/api/register',[UserController::class, 'store']);
+Router::post('/api/login',[UserController::class, 'login']);
+Router::post('/api/quizzes',[QuizController::class, 'store']);
 echo "Rout not found";
 
 $router = new Router();

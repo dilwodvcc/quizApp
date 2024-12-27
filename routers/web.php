@@ -1,9 +1,9 @@
 <?php
 
-use App\Controllers\OtherController;
-use App\Controllers\UserController;
+use App\Http\Controllers\OtherController;
+use App\Http\Controllers\UserController;
+use Src\Router;
 use App\Models\User;
-use Sourse\Router;
 
 
 $user = new User();
