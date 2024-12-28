@@ -13,3 +13,14 @@ use JetBrains\PhpStorm\NoReturn;
     echo json_encode($data);
     exit;
 }
+function view($page, $data = []): void
+{
+    extract($data);
+    require 'resources/views/' . $page . '.php';
+}
+
+#[NoReturn] function redirect($page): void
+{
+    header('Location:' . $page);
+    exit;
+}
