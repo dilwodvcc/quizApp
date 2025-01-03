@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\QuizController;
-use App\Http\Controllers\UserController;
 use Src\Router;
 
 Router::post('/api/register',[UserController::class, 'store']);

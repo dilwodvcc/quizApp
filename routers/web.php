@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\OtherController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ViewsController;
-use Src\Router;
+use App\Http\Controllers\WEB\HomeController;
 use App\Models\User;
+use Src\Router;
 
 
 $user = new User();
@@ -13,9 +13,15 @@ Router::get('/delete/{id}',[OtherController::class, 'delete']);
 Router::get('/users', [UserController::class, 'index']);
 
 
-Router::get('/', [ViewsController::class,  'home']);
-Router::get('/login',[ViewsController::class, 'login']);
-Router::get('/register',[ViewsController::class, 'register']);
+Router::get('/', [HomeController::class,  'home']);
+Router::get('/login',[HomeController::class, 'login']);
+Router::get('/register',[HomeController::class, 'register']);
+Router::get('/about', [HomeController::class,  'about']);
+Router::get('/add-quiz', [HomeController::class,  'addquiz']);
+Router::get('/create-quiz', [HomeController::class,  'createquiz']);
+Router::get('/dashboard', [HomeController::class,  'dashboard']);
+Router::get('/my-quizzes', [HomeController::class,  'myquizzes']);
+Router::get('/statistics', [HomeController::class,  'statistics']);
 
 
 //Router::get('/todos/{id}', callback: function ($id){
