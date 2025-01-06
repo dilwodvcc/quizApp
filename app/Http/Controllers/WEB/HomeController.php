@@ -40,4 +40,12 @@ class HomeController
     {
         view('statistics');
     }
+    public function howitworks(): void
+    {
+        view('how-it-works');
+    }
+    public function features(): void
+    {
+        view('home');
+    }
 }

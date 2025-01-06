@@ -1,5 +1,5 @@
 <nav class="flex-grow p-4">
-    <a href="/dashboard" class="block p-3 mb-2 text-gray-800 bg-gray-100 rounded-lg">
+    <a href="/dashboard" class="block p-3 mb-2 text-gray-600 hover:bg-gray-100 rounded-lg">
         <i class="fas fa-home mr-2"></i> Dashboard
     </a>
     <a href="/my-quizzes" class="block p-3 mb-2 text-gray-600 hover:bg-gray-100 rounded-lg">
