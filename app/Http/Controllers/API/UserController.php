@@ -13,16 +13,21 @@ class UserController{
         $userData = $this->validate([
             'full_name' => 'string',
             'email' => 'string',
-            'password' => 'string'
+            'password' => 'string',
+            'confirm_password' => 'string'
         ]);
         $user = new User();
-        if($user->createUser($userData['full_name'], $userData['email'], $userData['password']))
+        if ($userData['confirm_password'] == $userData['password'])
         {
-        apiResponse([
-            'message' => 'User created successfully !',
-            'token' => $user->apiToken
-        ],201);
+            if($user->createUser($userData['full_name'], $userData['email'], $userData['password']))
+            {
+                apiResponse([
+                    'message' => 'User created successfully !',
+                    'token' => $user->apiToken
+                ],201);
+            }
         }
+
     }
 
     public function login(): void

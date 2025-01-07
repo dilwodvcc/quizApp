@@ -10,13 +10,13 @@
             Sign in
         </a>
     </p>
-    <form class="mt-8 space-y-6" action="#" method="POST">
+    <form class="mt-8 space-y-6" action="/api/register" method="POST">
         <!-- Full Name Input -->
         <div>
             <label for="name" class="block text-sm font-medium text-gray-300">Full name</label>
-            <input id="name" name="name" type="text" required
+            <input id="name" name="full_name" type="text" required
                    class="appearance-none rounded-md relative block w-full px-4 py-3 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm"
-                   placeholder="Enter your fullname">
+                   placeholder="Enter your full name">
         </div>
 
         <!-- Email Input -->
@@ -38,7 +38,7 @@
         <!-- Confirm Password Input -->
         <div>
             <label for="confirm-password" class="block text-sm font-medium text-gray-300">Confirm password</label>
-            <input id="confirm-password" name="confirm-password" type="password" required
+            <input id="confirm-password" name="confirm_password" type="password" required
                    class="appearance-none rounded-md relative block w-full px-4 py-3 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm"
                    placeholder="Confirm password created">
         </div>

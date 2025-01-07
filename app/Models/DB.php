@@ -12,6 +12,7 @@ class DB
     private string $db_pass;
     private string $db_name;
     protected PDO $conn;
+
     public function __construct()
     {
         $this->db_host = $_ENV['DB_HOST'];
@@ -25,6 +26,7 @@ class DB
             ]
         );
     }
+
     public function getConnection(): PDO
     {
         return $this->conn;

@@ -16,6 +16,10 @@ class HomeController
     {
         view('register');
     }
+    public function registerpost(): void
+    {
+        view('register');
+    }
     public function about(): void
     {
         view('about');

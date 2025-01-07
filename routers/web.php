@@ -10,8 +10,6 @@ use Src\Router;
 $user = new User();
 Router::get('/show', [OtherController::class, 'show']);
 Router::get('/delete/{id}',[OtherController::class, 'delete']);
-Router::get('/users', [UserController::class, 'index']);
-
 
 Router::get('/', [HomeController::class,  'home']);
 Router::get('/login',[HomeController::class, 'login']);
@@ -24,6 +22,7 @@ Router::get('/my-quizzes', [HomeController::class,  'myquizzes']);
 Router::get('/statistics', [HomeController::class,  'statistics']);
 Router::get('/how-it-works', [HomeController::class,  'howitworks']);
 Router::get('/features', [HomeController::class,  'features']);
+
 //Router::get('/todos/{id}', callback: function ($id){
 //    (new Controllers\OtherController)->delete($id);
 //});
