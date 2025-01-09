@@ -23,6 +23,9 @@ Router::get('/statistics', [HomeController::class,  'statistics']);
 Router::get('/how-it-works', [HomeController::class,  'how_it_works']);
 Router::get('/features', [HomeController::class,  'features']);
 
+
+
+Router::notFound();
 //Router::get('/todos/{id}', callback: function ($id){
 //    (new Controllers\OtherController)->delete($id);
 //});

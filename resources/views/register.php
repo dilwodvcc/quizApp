@@ -41,6 +41,7 @@
             <input id="confirm-password" name="confirm_password" type="password" required
                    class="appearance-none rounded-md relative block w-full px-4 py-3 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm"
                    placeholder="Confirm password created">
+            <p id="error"></p>
         </div>
 
         <!-- Terms and Conditions -->
@@ -62,6 +63,6 @@
         </div>
     </form>
 </div>
-<script src="./js/register.js"></script>
 </body>
+<script src="./js/register.js"></script>
 </html>

@@ -9,7 +9,7 @@ trait Validator
         $requiredKey = [];
         foreach ($date as $key => $value)
         {
-            if(array_key_exists($key, $_REQUEST))
+            if(array_key_exists($key, $_REQUEST) and !empty($_REQUEST[$key]))
             {
                 continue;
             }

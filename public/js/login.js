@@ -1,15 +1,22 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('form');
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = document.querySelector('#email').value;
-        const password = document.querySelector('#password').value;
+async function login() {
+    let form = document.getElementById("form"),
+        formData = new FormData(form);
+    const { default: apiFetch } = await import("./utils/apiFetch.js");
 
-        if (email && password) {
-            alert(`Welcome back, ${email}!`);
-            // Replace the alert with actual authentication logic
-        } else {
-            alert('Please fill in both fields.');
-        }
-    });
-});
+    document.getElementById("error").innerHTML = "";
+
+    await apiFetch('/login', { method: 'POST', body: formData })
+        .then((data) =>
+        {
+            localStorage.setItem('token',data.token);
+            window.location.href = '/';
+        })
+        .catch(error => {
+            console.log(error.data);
+            console.error(error.data.errors);
+
+            Object.keys(error.data.errors).forEach(key => {
+                document.getElementById("error").innerHTML += `<p class="text-red-600 mt-1">${error.data.errors[key]}</p>`;
+            });
+        });
+}

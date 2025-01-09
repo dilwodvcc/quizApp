@@ -24,6 +24,7 @@
                        class="appearance-none rounded-md relative block w-full px-4 py-3 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm"
                        placeholder="Password">
             </div>
+            <div style="display: block" id="error"></div>
         </div>
 
         <!-- Remember me & Forgot Password -->
@@ -43,6 +44,7 @@
         </div>
 
         <!-- Submit Button -->
+
         <div>
             <button type="button" onclick="login()"
                     class="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-700 hover:bg-indigo-800 focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-indigo-600">
@@ -59,6 +61,6 @@
         </div>
     </form>
 </div>
-<script scr="./js/script.js"></script>
 </body>
+<script src="./js/login.js"></script>
 </html>
