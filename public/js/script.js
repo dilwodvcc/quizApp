@@ -1,9 +1,9 @@
-async function register()
+async function login()
 {
     let form = document.getElementById("form"),
         formData = new FormData(form);
 
-    fetch("http://localhost:8080/api/register",
+    fetch("http://localhost:8080/api/login",
         {
             method: "POST",
             body: formData,
@@ -16,11 +16,11 @@ async function register()
             }
             return Promise.reject(response);
         })
-        .then(function (data)
-        {
-            localStorage.setItem('Token', data.token);
-            console.log(localStorage.getItem('Token'));
-        })
+    .then(function (data)
+    {
+        localStorage.setItem('Token', data.token);
+        console.log(localStorage.getItem('Token'));
+    })
         .catch(function (error)
         {
             console.error(error)

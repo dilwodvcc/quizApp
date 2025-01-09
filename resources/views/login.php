@@ -8,7 +8,7 @@
     </div>
 
     <!-- Form Section -->
-    <form class="mt-8 space-y-6" action="/api/login" method="POST">
+    <form id="form" class="mt-8 space-y-6" action="/api/login" method="POST">
         <div class="rounded-md shadow-sm -space-y-px">
             <!-- Email -->
             <div class="mb-4">
@@ -44,7 +44,7 @@
 
         <!-- Submit Button -->
         <div>
-            <button type="submit"
+            <button type="button" onclick="login()"
                     class="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-700 hover:bg-indigo-800 focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-indigo-600">
                 Login
             </button>
@@ -59,6 +59,6 @@
         </div>
     </form>
 </div>
-
+<script scr="./js/script.js"></script>
 </body>
 </html>

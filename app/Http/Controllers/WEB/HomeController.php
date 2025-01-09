@@ -16,19 +16,15 @@ class HomeController
     {
         view('register');
     }
-    public function registerpost(): void
-    {
-        view('register');
-    }
     public function about(): void
     {
         view('about');
     }
-    public function addquiz(): void
+    public function add_quiz(): void
     {
-        require "../resources/views/add-quiz.js";
+        require "public/js/add-quiz.js";
     }
-    public function createquiz(): void
+    public function create_quiz(): void
     {
         view('create-quiz');
     }
@@ -36,7 +32,7 @@ class HomeController
     {
         view('dashboard');
     }
-    public function myquizzes(): void
+    public function my_quizzes(): void
     {
         view('my-quizzes');
     }
@@ -44,7 +40,7 @@ class HomeController
     {
         view('statistics');
     }
-    public function howitworks(): void
+    public function how_it_works(): void
     {
         view('how-it-works');
     }

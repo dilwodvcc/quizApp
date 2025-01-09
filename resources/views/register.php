@@ -10,7 +10,7 @@
             Sign in
         </a>
     </p>
-    <form class="mt-8 space-y-6" action="/api/register" method="POST">
+    <form id="form" class="mt-8 space-y-6" action="/api/register" method="POST">
         <!-- Full Name Input -->
         <div>
             <label for="name" class="block text-sm font-medium text-gray-300">Full name</label>
@@ -55,13 +55,13 @@
 
         <!-- Submit Button -->
         <div>
-            <button type="submit"
+            <button type="button" onclick="register()"
                     class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-indigo-700 hover:bg-indigo-800 focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-indigo-600">
                 Create Account
             </button>
         </div>
     </form>
 </div>
-
+<script src="./js/register.js"></script>
 </body>
 </html>

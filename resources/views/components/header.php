@@ -8,4 +8,5 @@
     <link rel="stylesheet" href="./css/output.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./js/add-quiz.js"></script>
+    <script src="./js/script.js"></script>
 </head>
