@@ -44,4 +44,14 @@ class UserController{
             ], 201);
         }
     }
+    #[NoReturn] public function show(): void
+    {
+        apiResponse([
+            'user'=>
+            [
+                'name' => 'John Doe',
+                'email' => 'john@doe.com',
+            ]
+        ]);
+    }
 }

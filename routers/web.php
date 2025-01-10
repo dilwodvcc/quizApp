@@ -22,13 +22,9 @@ Router::get('/my-quizzes', [HomeController::class,  'my_quizzes']);
 Router::get('/statistics', [HomeController::class,  'statistics']);
 Router::get('/how-it-works', [HomeController::class,  'how_it_works']);
 Router::get('/features', [HomeController::class,  'features']);
-
-
+Router::get('/delete/{id}', [OtherController::class,  'delete']);
 
 Router::notFound();
-//Router::get('/todos/{id}', callback: function ($id){
-//    (new Controllers\OtherController)->delete($id);
-//});
 
 //dd($user->getUser("abdul@gmail.com",'123456'));
 //dd($user->createUser("Fazliddinov Abdulloh","abdulloh207@gmail.com",'123456'));

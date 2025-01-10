@@ -14,7 +14,7 @@ class Auth
         {
             apiResponse([
                 "error" => "Unauthorized"
-            ]);
+            ],401);
         }
         if(!str_starts_with($headers['Authorization'], 'Bearer '))
         {
@@ -35,7 +35,7 @@ class Auth
         {
             apiResponse([
                 "error" => "Unauthorized"
-            ]);
+            ],401);
         }
         return true;
     }

@@ -1,6 +1,8 @@
 <?php
 
 namespace Src;
+use Src\middlewares\AuthMiddleware;
+
 class Router{
     public string $currentRoute;
 
@@ -9,6 +11,7 @@ class Router{
     }
     public static function gerRoute(): false|array|int|string|null {
         return (new static())->currentRoute;
+
     }
 
     public static function getResource($route): false|string {
@@ -22,44 +25,50 @@ class Router{
         }
         return $resourceValue ?: false;
     }
-    public static function runCallback(string $route, callable|array $callback): void {
+    public static function runCallback(string $route, callable|array $callback,?string $middleware=null): void {
         if(gettype($callback) == 'array'){
             $resourceValue = self::getResource($route);
             if ($resourceValue) {
                 $resourceRoute = str_replace('{id}', $resourceValue, $route);
                 if ($resourceRoute == self::gerRoute()) {
+                    self::middleware($middleware);
                     (new $callback[0])->{$callback[1]}($resourceValue);
                     exit();
                 }
             }
             if ($route == self::gerRoute()) {
+                self::middleware($middleware);
                 (new $callback[0])->{$callback[1]}();
                 exit();
             }
         }
         $resourceValue = self::getResource($route);
+
         if ($resourceValue) {
             $resourceRoute = str_replace('{id}', $resourceValue, $route);
             if ($resourceRoute == self::gerRoute()) {
+                self::middleware($middleware);
                 $callback($resourceValue);
                 exit();
             }
         }
+
         if ($route == self::gerRoute()) {
+            self::middleware($middleware);
             $callback();
             exit();
         }
     }
 
-    public static function get(string $route, callable|array $callback): void {
+    public static function get(string $route, callable|array $callback,?string $middleware=null): void {
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            self::runCallback($route, $callback);
+            self::runCallback($route, $callback,$middleware);
         }
     }
 
-    public static function post(string $route, callable|array $callback): void {
+    public static function post(string $route, callable|array $callback,?string $middleware=null): void {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            self::runCallback($route, $callback);
+            self::runCallback($route, $callback,$middleware);
         }
     }
 
@@ -74,6 +83,21 @@ class Router{
     public static function delete(string $route, callable|array $callback): void {
         if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
             self::runCallback($route, $callback);
+        }
+    }
+    public static function middleware(?string $middleware): void
+    {
+        if ($middleware)
+        {
+            $middlewareConfig = require '../config/middleware.php';
+            if(is_array($middlewareConfig))
+            {
+                if (array_key_exists($middleware, $middlewareConfig))
+                {
+                    $middlewareClass = $middlewareConfig[$middleware];
+                    (new $middlewareClass)->handle();
+                }
+            }
         }
     }
 

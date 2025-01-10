@@ -3,11 +3,14 @@ async function register() {
         formData = new FormData(form);
     const { default: apiFetch } = await import("./utils/apiFetch.js");
 
-    // Error elementni tozalash
     document.getElementById("error").innerHTML = "";
 
     await apiFetch('/register', { method: 'POST', body: formData })
-        .then(data => console.log(data))
+        .then((data) =>
+        {
+            localStorage.setItem('token',data.token);
+            window.location.href = '/dashboard'
+        })
         .catch(error => {
             console.log(error.data);
             console.error(error.data.errors);

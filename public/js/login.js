@@ -9,7 +9,7 @@ async function login() {
         .then((data) =>
         {
             localStorage.setItem('token',data.token);
-            window.location.href = '/';
+            window.location.href = '/dashboard';
         })
         .catch(error => {
             console.log(error.data);

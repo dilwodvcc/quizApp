@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\middleware;
+namespace Src\middlewares;
 
 use Src\Auth as apiAuth;
 
-class Auth
+class AuthMiddleware implements Middleware
 {
     public function handle(): void
     {

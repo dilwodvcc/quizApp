@@ -24,7 +24,7 @@ class OtherController {
         if ($result) {
             return json_encode([
                 "status" => "success",
-                "message" => "Todo muvaffaqiyatli o'chirildi."
+                "message" => "User deleted successfully."
             ]);
         } else {
             return json_encode([
