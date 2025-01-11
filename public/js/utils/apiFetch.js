@@ -12,10 +12,13 @@ function apiFetch(uri,options = {})
             ...options,
             headers: {...defaultHeaders, ...options.headers},
         })
-        .then(async response =>
-        {
-            if (!response.ok)
-            {
+        .then(async response => {
+            if (!response.ok) {
+                if (response.status === 401) {
+                    if (window.location.pathname !== '/login') {
+                        window.location.href = '/login';
+                    }
+                }
                 const error = new Error("HTTP Response failed");
                 error.data = await response.json();
                 throw error;
