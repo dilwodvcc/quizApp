@@ -21,6 +21,6 @@ function view($page, $data = []): void
 
 #[NoReturn] function redirect($page): void
 {
-    header('Location:' . $page);
+    header('Location:'. $page);
     exit;
 }

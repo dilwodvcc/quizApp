@@ -17,17 +17,14 @@ class UserController{
             'confirm_password' => 'string'
         ]);
         $user = new User();
-        if ($userData['confirm_password'] == $userData['password'])
-        {
-            if($user->createUser($userData['full_name'], $userData['email'], $userData['password']))
-            {
+        if ($userData['confirm_password'] == $userData['password']) {
+            if ($user->createUser($userData['full_name'], $userData['email'], $userData['password'])) {
                 apiResponse([
                     'message' => 'User created successfully !',
                     'token' => $user->apiToken
-                ],201);
+                ], 201);
             }
         }
-
     }
 
     public function login(): void
@@ -43,6 +40,10 @@ class UserController{
                 'token' => $user->apiToken
             ], 201);
         }
+    }
+    public function logout(): void
+    {
+
     }
     #[NoReturn] public function show(): void
     {

@@ -22,7 +22,6 @@ Router::get('/my-quizzes', [HomeController::class,  'my_quizzes']);
 Router::get('/statistics', [HomeController::class,  'statistics']);
 Router::get('/how-it-works', [HomeController::class,  'how_it_works']);
 Router::get('/features', [HomeController::class,  'features']);
-Router::get('/delete/{id}', [OtherController::class,  'delete']);
 
 Router::notFound();
 
