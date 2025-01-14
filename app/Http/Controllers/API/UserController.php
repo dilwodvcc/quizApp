@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Models\User;
 use App\Traits\Validator;
 use JetBrains\PhpStorm\NoReturn;
+use Src\Auth;
 
 class UserController{
     use Validator;
@@ -17,12 +18,14 @@ class UserController{
             'confirm_password' => 'string'
         ]);
         $user = new User();
-        if ($userData['confirm_password'] == $userData['password']) {
-            if ($user->createUser($userData['full_name'], $userData['email'], $userData['password'])) {
+        if ($userData['confirm_password'] == $userData['password'])
+        {
+            if($user->createUser($userData['full_name'], $userData['email'], $userData['password']))
+            {
                 apiResponse([
                     'message' => 'User created successfully !',
                     'token' => $user->apiToken
-                ], 201);
+                ],201);
             }
         }
     }
@@ -41,18 +44,19 @@ class UserController{
             ], 201);
         }
     }
-    public function logout(): void
+    #[NoReturn] public function logout(): void
     {
-
-    }
-    #[NoReturn] public function show(): void
-    {
+        unset($_SESSION['user']);
         apiResponse([
-            'user'=>
-            [
-                'name' => 'John Doe',
-                'email' => 'john@doe.com',
-            ]
+            'message' => 'User logged out successfully'
+        ]);
+    }
+    public function show()
+    {
+        $user = Auth::user();
+        apiResponse([
+            'message'=>'User information',
+            'data'=> $user
         ]);
     }
 }

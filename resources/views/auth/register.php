@@ -1,4 +1,4 @@
-<?php require "../resources/views/components/header.php";?>
+<?php require "../resources/views/components/home/header.php";?>
 <body class="bg-gradient-to-b from-gray-900 to-black min-h-screen flex items-center justify-center text-white">
 
 <div class="max-w-md w-full space-y-8 bg-gray-800 p-8 rounded-xl shadow-2xl transform transition duration-300 hover:scale-105">

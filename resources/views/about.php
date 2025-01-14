@@ -1,8 +1,8 @@
-<?php require "../resources/views/components/header.php";?>
+<?php require "../resources/views/components/home/header.php";?>
 <body class="bg-gray-50">
 
 <!-- Navigation -->
-<?php require "../resources/views/components/navbar2.php";?>
+<?php require "../resources/views/components/home/navbar.php";?>
 
 <!-- Hero Section -->
 <div class="bg-indigo-600 text-white py-20">

@@ -1,7 +1,8 @@
-<?php require "../resources/views/components/header.php";?>
+<?php require "../resources/views/components/home/header.php";?>
+
 <body class="bg-gradient-to-b from-blue-50 to-indigo-100 min-h-screen flex flex-col">
 <!-- Navbar -->
-<?php require "../resources/views/components/navbar2.php";?>
+<?php require "../resources/views/components/home/navbar.php";?>
 
 <!-- Hero Section -->
 <header class="flex-grow flex items-center justify-center bg-gradient-to-b from-white via-indigo-50 to-indigo-100 py-32">
@@ -51,4 +52,4 @@
 </section>
 
 <!-- Footer -->
-<?php require "../resources/views/components/footer.php";?>
+<?php require "../resources/views/components/home/footer.php";?>

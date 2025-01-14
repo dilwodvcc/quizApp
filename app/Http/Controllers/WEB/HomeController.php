@@ -2,50 +2,52 @@
 
 namespace App\Http\Controllers\WEB;
 
+use JetBrains\PhpStorm\NoReturn;
+
 class HomeController
 {
     public function home(): void
     {
-        view('home');
+        view_home('home');
     }
     public function login(): void
     {
-        view('login');
+        view_auth('login');
     }
     public function register(): void
     {
-        view('register');
+        view_auth('register');
     }
     public function about(): void
     {
-        view('about');
+        view_home('about');
     }
-    public function add_quiz(): void
+    #[NoReturn] public function add_quiz(): void
     {
-        require "public/js/add-quiz.js";
+            require "public/js/add-quiz.js";
     }
-    public function create_quiz(): void
+    #[NoReturn] public function create_quiz(): void
     {
-        view('create-quiz');
+        view_dash('create-quiz');
     }
-    public function dashboard(): void
+    #[NoReturn] public function dashboard(): void
     {
-        view('dashboard');
+            view_dash('dashboard');
     }
-    public function my_quizzes(): void
+    #[NoReturn] public function my_quizzes(): void
     {
-        view('my-quizzes');
+            view_dash('my-quizzes');
     }
-    public function statistics(): void
+    #[NoReturn] public function statistics(): void
     {
-        view('statistics');
+            view_dash('statistics');
     }
-    public function how_it_works(): void
+    #[NoReturn] public function how_it_works(): void
     {
-        view('how-it-works');
+        view_home('how-it-works');
     }
     public function features(): void
     {
-        view('home');
+        view_home('home');
     }
 }

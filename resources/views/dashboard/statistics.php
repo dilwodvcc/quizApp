@@ -1,37 +1,9 @@
-<?php require "../resources/views/components/header.php";?>
+<?php require "../resources/views/components/dashboard/header.php";?>
+
 <body class="bg-gray-100">
 <div class="min-h-screen flex">
     <!-- Sidebar -->
-    <aside class="bg-white w-64 min-h-screen flex flex-col shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in fixed md:static z-30" id="sidebar">
-        <div class="p-4 border-b flex items-center justify-between">
-            <a href="/"><h2 class="text-2xl font-bold text-gray-800">Quiz App</h2></a>
-            <div>
-                <button class="md:hidden text-gray-600" onclick="document.getElementById('sidebar').classList.toggle('-translate-x-full')">
-                    <i class="fas fa-close text-xl"></i>
-                </button>
-            </div>
-        </div>
-        <?php require "../resources/views/components/navbar.php";?>
-    </aside>
-
-    <!-- Main Content -->
-    <div class="flex-1">
-        <!-- Top Navigation -->
-        <header class="bg-white shadow-sm">
-            <div class="h-16 flex items-center justify-between px-4">
-                <button class="md:hidden text-gray-600" onclick="document.getElementById('sidebar').classList.toggle('-translate-x-full')">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
-                <div class="flex items-center space-x-4">
-
-                    <div class="flex items-center space-x-2">
-                        <img src="https://i.pinimg.com/736x/63/ed/ad/63edad1b2809a6f13048bc166f8e6f7e.jpg" alt="Profile" class="w-10 h-10 rounded-full">
-                        <span class="text-gray-700 font-medium">John Doe</span>
-                    </div>
-                </div>
-            </div>
-        </header>
-
+        <?php require "../resources/views/components/dashboard/navbar.php";?>
         <!-- Main Content Area -->
         <main class="p-6">
             <h1 class="text-2xl font-bold text-gray-800 mb-6">Statistics Overview</h1>

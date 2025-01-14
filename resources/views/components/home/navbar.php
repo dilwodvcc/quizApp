@@ -15,11 +15,6 @@
                         Register
                     </a>
                 </div>
-                <div class="md flex items-center">
-                    <button class="mobile-menu-button">
-                        <i class="fas fa-bars text-gray-500 text-2xl"></i>
-                    </button>
-                </div>
             </div>
         </div>
     </div>

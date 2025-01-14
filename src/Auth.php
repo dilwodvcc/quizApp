@@ -3,12 +3,13 @@
 namespace Src;
 
 use App\Models\DB;
+use App\Models\User;
+use JetBrains\PhpStorm\NoReturn;
 
 class Auth
 {
 
-
-    public static function check(): bool
+    public static function getToken(): bool
     {
         $headers = getallheaders();
         if(!isset($headers['Authorization']))
@@ -19,20 +20,29 @@ class Auth
         }
         if(!str_starts_with($headers['Authorization'], 'Bearer '))
         {
-           apiResponse([
-               "error" => "Authorization format is invalid,allowed format is Bearer"
-           ],400);
+            apiResponse([
+                "error" => "Authorization format is invalid,allowed format is Bearer"
+            ],400);
         }
-        $token = str_replace('Bearer ', '', $headers['Authorization']);
+        return str_replace('Bearer ', '', $headers['Authorization']);
+
+    }
+    public static function getUserCorrectToken(): mixed
+    {
         $db = new DB();
         $pdo = $db->getConnection();
-        $query = "SELECT * FROM `user_api_token` WHERE `token`=:token";
+        $query = "SELECT * FROM `user_api_token` WHERE `token`=:token and expires_at >= NOW()";
         $stmt =$pdo->prepare($query);
         $stmt->execute([
-            ':token'=> $token
+            ':token'=> self::getToken()
         ]);
-        $apiToken = $stmt->fetch();
-        if(!$apiToken)
+        return $stmt->fetch();
+
+    }
+
+    public static function check(): bool
+    {
+        if(!self::getToken())
         {
             apiResponse([
                 "error" => "Unauthorized"
@@ -40,4 +50,17 @@ class Auth
         }
         return true;
     }
+    public static function user()
+    {
+        $token = self::getUserCorrectToken();
+        if(!$token)
+        {
+            apiResponse([
+                'errors'=>["error" => "Unauthorized"]
+            ],401);
+        }
+        $user = new User();
+        return $user->getUserById($token->user_id);
+    }
 }
+

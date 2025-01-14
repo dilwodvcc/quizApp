@@ -1,7 +1,9 @@
-<?php require "../resources/views/components/header.php";?>
+<?php require "../resources/views/components/home/header.php";?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <body class="bg-gray-100">
 <div class="min-h-screen flex flex-col">
-    <?php require "../resources/views/components/navbar2.php";?>
+    <?php require "../resources/views/components/home/navbar.php";?>
     <!-- Header -->
     <header class="bg-white shadow-sm p-6">
         <h1 class="text-3xl font-bold text-center text-gray-800">How It Works</h1>

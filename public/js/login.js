@@ -1,4 +1,5 @@
 async function login() {
+    event.preventDefault();
     let form = document.getElementById("form"),
         formData = new FormData(form);
     const { default: apiFetch } = await import("./utils/apiFetch.js");
