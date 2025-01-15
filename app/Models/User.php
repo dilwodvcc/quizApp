@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Traits\HasApiTokens;
 use PDOException;
 
-
 class User extends DB
 {
     use HasApiTokens;
@@ -50,18 +49,22 @@ class User extends DB
             "email" => $email
         ]);
         $user = $stmt->fetch();
-        if ($user&&password_verify($password, $user->password)) {
+        if ($user&&password_verify($password, $user->password))
+        {
             $this->CreateApiToken($user->id);
             return true;
         }
         return false;
     }
+
     public function getUserById(int $id)
     {
-        $query = "SELECT id, full_name, email, updated_at, created_at FROM users WHERE id = :id";
+        $query = "SELECT id, full_name, email, created_at, updated_at FROM users WHERE id = :id";
         $stmt = $this->conn
             ->prepare($query);
-        $stmt->execute([':id' => $id]);
+        $stmt->execute([
+            "id" => $id,
+        ]);
         return $stmt->fetch();
     }
 }

@@ -36,7 +36,7 @@
 
                 <div class="flex items-center space-x-2">
                     <img src="https://i.pinimg.com/736x/63/ed/ad/63edad1b2809a6f13048bc166f8e6f7e.jpg" alt="Profile" class="w-10 h-10 rounded-full">
-                    <span class="text-gray-700 font-medium">John Doe</span>
+                    <span class="text-gray-700 font-medium" id="userName"></span>
                 </div>
             </div>
         </div>

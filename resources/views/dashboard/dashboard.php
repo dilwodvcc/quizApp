@@ -1,20 +1,5 @@
 <?php require "../resources/views/components/dashboard/header.php";?>
-<script>
-    async function user()
-    {
-        const {default: apiFetch} = await import('./js/utils/apiFetch.js');
-        await apiFetch('/users/getInfo',{method:'GET'})
-            .then((data)=>
-            {
-                console.log(data);
-            })
-            .catch((error)=>
-            {
-                window.location.href = '/login';
-            });
-    }
-    user()
-</script>
+<script src="js/getUserInfo.js"></script>
 <body class="bg-gray-100">
 <div class="min-h-screen flex">
 
@@ -113,6 +98,5 @@
         </main>
     </div>
 </div>
-<script src="./js/add-qiuz.js"></script>
 </body>
 </html>

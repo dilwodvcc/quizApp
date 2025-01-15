@@ -51,7 +51,7 @@ class UserController{
             'message' => 'User logged out successfully'
         ]);
     }
-    public function show()
+    #[NoReturn] public function show(): void
     {
         $user = Auth::user();
         apiResponse([
