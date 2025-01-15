@@ -7,6 +7,7 @@ use App\Models\DB;
 class Auth
 {
 
+
     public static function check(): bool
     {
         $headers = getallheaders();
