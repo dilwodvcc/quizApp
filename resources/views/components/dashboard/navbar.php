@@ -9,38 +9,42 @@
             </button>
         </div>
     </div>
-    <nav class="flex-grow p-4" id="sidebar">
-        <a href="/dashboard" class="block p-3 mb-2 text-gray-600 hover:bg-gray-100 rounded-lg">
-            <i class="fas fa-home mr-2"></i> Dashboard
-        </a>
-        <a href="/my-quizzes" class="block p-3 mb-2 text-gray-600 hover:bg-gray-100 rounded-lg">
-            <i class="fas fa-book mr-2"></i> My Quizzes
-        </a>
-        <a href="/create-quiz" class="block p-3 mb-2 text-gray-600 hover:bg-gray-100 rounded-lg">
-            <i class="fas fa-plus mr-2"></i> Create Quiz
-        </a>
-        <a href="/statistics" class="block p-3 mb-2 text-gray-600 hover:bg-gray-100 rounded-lg">
-            <i class="fas fa-chart-bar mr-2"></i> Statistics
-        </a>
+    <nav class="flex-grow p-4" id="sideBar">
+
     </nav>
 </aside>
-<!--<script >-->
-<!--    let sideBareItem =-->
-<!--        [-->
-<!--            {-->
-<!--                name: "Dashboard",-->
-<!--                url: "/dashboard",-->
-<!--                icon: "fas fa-home mr-2"-->
-<!--            }-->
-<!--            {-->
-<!--                name: "My Quizzes",-->
-<!--                url: "/my-quizzes",-->
-<!--                icon: "fas fa-book mr-2"-->
-<!--            }-->
-<!--            {-->
-<!--                name: "",-->
-<!--            }-->
-<!---->
-<!--        ]-->
-<!--    let sidebar = document.getElementById("sidebar");-->
-<!--</script>-->
+<script >
+    let sideBareItem =
+        [
+            {
+                name: "Dashboard",
+                uri: "/dashboard",
+                icon: "fas fa-home mr-2"
+            },
+
+            {
+                name: "My Quizzes",
+                uri: "/my-quizzes",
+                icon: "fas fa-book mr-2"
+            },
+
+            {
+                name: "Create Quiz",
+                uri: "/create-quiz",
+                icon: "fas fa-plus mr-2"
+            },
+
+            {
+                name: "Statistics",
+                uri: "/statistics",
+                icon: "fas fa-chart-bar mr-2"
+            }
+        ]
+    let sideBar = document.getElementById("sideBar");
+    sideBareItem.forEach((item) => {
+        let isActive = window.location.pathname === item.url ? 'bg-gray-100' : 'hover:bg-gray-100'; ;
+        sideBar.innerHTML += `<a href="${item.uri}" class="block p-3 mb-2 text-gray-800 ${isActive} rounded-lg">
+            <i class="${item.icon}"></i> ${item.name}
+        </a>`;
+    })
+</script>
