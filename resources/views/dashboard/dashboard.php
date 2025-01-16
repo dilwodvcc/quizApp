@@ -1,10 +1,26 @@
 <?php require "../resources/views/components/dashboard/header.php";?>
-<script src="js/getUserInfo.js"></script>
 <body class="bg-gray-100">
 <div class="min-h-screen flex">
 
     <!-- Sidebar -->
         <?php require "../resources/views/components/dashboard/navbar.php";?>
+    <!-- Main Content -->
+    <div class="flex-1">
+        <!-- Top Navigation -->
+        <header class="bg-white shadow-sm">
+            <div class="h-16 flex items-center justify-between px-4">
+                <button class="md:hidden text-gray-600" onclick="document.getElementById('sidebar').classList.toggle('-translate-x-full')">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <div class="flex items-center space-x-4">
+
+                    <div class="flex items-center space-x-2">
+                        <img src="https://i.pinimg.com/736x/63/ed/ad/63edad1b2809a6f13048bc166f8e6f7e.jpg" alt="Profile" class="w-10 h-10 rounded-full">
+                        <span class="text-gray-700 font-medium" id="userName"></span>
+                    </div>
+                </div>
+            </div>
+        </header>
         <!-- Main Content Area -->
         <main class="flex-1 p-4 md:p-6">
             <!-- Quick Actions -->

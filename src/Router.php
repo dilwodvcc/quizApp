@@ -115,6 +115,6 @@ class Router{
                 'error' => 'Not found'
             ],404);
         }
-        view('404');
+        view_home('404');
     }
 }

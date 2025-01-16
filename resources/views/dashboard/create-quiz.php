@@ -4,6 +4,23 @@
 <div class="flex min-h-screen">
     <!-- Sidebar -->
     <?php require "../resources/views/components/dashboard/navbar.php";?>
+
+    <div class="flex-1">
+        <!-- Top Navigation -->
+        <header class="bg-white shadow-sm">
+            <div class="h-16 flex items-center justify-between px-4">
+                <button class="md:hidden text-gray-600" onclick="document.getElementById('sidebar').classList.toggle('-translate-x-full')">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <div class="flex items-center space-x-4">
+
+                    <div class="flex items-center space-x-2">
+                        <img src="https://i.pinimg.com/736x/63/ed/ad/63edad1b2809a6f13048bc166f8e6f7e.jpg" alt="Profile" class="w-10 h-10 rounded-full">
+                        <span class="text-gray-700 font-medium" id="userName"></span>
+                    </div>
+                </div>
+            </div>
+        </header>
         <!-- Content -->
         <main class="p-6">
             <div class="min-h-screen bg-gray-100">
@@ -15,7 +32,7 @@
                     </div>
 
                     <!-- Main Form -->
-                    <form class="space-y-4" id="quizForm">
+                    <form class="space-y-4" id="quizForm" method="POST" onsubmit="store()">
                         <!-- Quiz Details Section -->
                         <div class="bg-white p-6 rounded-lg shadow-md">
                             <h3 class="text-xl font-semibold text-gray-800 mb-4">Quiz Details</h3>
@@ -83,6 +100,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <div id="error"></div>
                         </div>
 
                         <!-- Submit Button -->
@@ -99,5 +117,30 @@
     </div>
 </div>
 <script src="./js/add-quiz.js"></script>
+<script >
+    async function store() {
+        event.preventDefault();
+        let form = document.getElementById("quizForm");
+            formData = new FormData(form);
+        const { default: apiFetch } = await import("/js/utils/apiFetch.js");
+
+        document.getElementById("error").innerHTML = "";
+
+        await apiFetch('/quizzes', { method: 'POST', body: formData })
+            .then((data) =>
+            {
+
+            })
+            .catch(error => {
+                console.log(error.data);
+                console.error(error.data.errors);
+
+                Object.keys(error.data.errors).forEach(key => {
+                    document.getElementById("error").innerHTML += `<p class="text-red-600 mt-1">${error.data.errors[key]}</p>`;
+                });
+            });
+    }
+
+</script>
 </body>
 </html>

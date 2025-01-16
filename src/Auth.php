@@ -46,7 +46,7 @@ class Auth
         return true;
     }
 
-    #[NoReturn] public static function user(): mixed
+    public static function user(): mixed
     {
         $token = self::getUserCorrectToken();
         if (!$token) {
