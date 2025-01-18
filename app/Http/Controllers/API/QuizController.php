@@ -13,6 +13,12 @@ class QuizController
 {
     use Validator;
 
+    #[NoReturn] public function index(): void
+    {
+        $quizzes = (new Quiz())->getByUserId(Auth::user()->id);
+        apiResponse(['quizzes' => $quizzes]);
+    }
+
     #[NoReturn] public function store(): void
     {
         $quizItems = $this->validate([
@@ -30,7 +36,7 @@ class QuizController
             Auth::user()->id,
             $quizItems['title'],
             $quizItems['description'],
-            $quizItems['timeLimit']
+            $quizItems['timeLimit'],
         );
 
         $questions = $quizItems['questions'];
@@ -46,5 +52,15 @@ class QuizController
         }
 
         apiResponse(["message" => "Quiz created successfully !",],201);
+        }
+        #[NoReturn] public function destroy(int $quizId): void
+        {
+            $quiz = new Quiz();
+            if ($quiz->delete($quizId))
+            {
+            apiResponse(["message" => "Quiz deleted successfully !"],201);
+            }else{
+                apiResponse(["message" => "Quiz not found !"],404);
+            }
         }
 }

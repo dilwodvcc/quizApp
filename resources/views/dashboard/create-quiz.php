@@ -120,26 +120,30 @@
 <script >
     async function store() {
         event.preventDefault();
-        let form = document.getElementById("quizForm");
+        let form = document.getElementById("quizForm"),
             formData = new FormData(form);
         const { default: apiFetch } = await import("/js/utils/apiFetch.js");
 
         document.getElementById("error").innerHTML = "";
 
         await apiFetch('/quizzes', { method: 'POST', body: formData })
-            .then((data) =>
-            {
-
+            .then((data) => {
+                window.location.href = '/my-quizzes';
             })
             .catch(error => {
-                console.log(error.data);
-                console.error(error.data.errors);
-
-                Object.keys(error.data.errors).forEach(key => {
-                    document.getElementById("error").innerHTML += `<p class="text-red-600 mt-1">${error.data.errors[key]}</p>`;
-                });
+                console.error('Xatolik:', error);  // To'liq error ob'ektini ko'rsatish
+                if (error && error.data && error.data.errors) {
+                    console.log(error.data);  // Xatoliklarni ko'rish
+                    Object.keys(error.data.errors).forEach(key => {
+                        document.getElementById("error").innerHTML += `<p class="text-red-600 mt-1">${error.data.errors[key]}</p>`;
+                    });
+                } else {
+                    // Xatoliklar bo'lmasa yoki tuzilmani topmasak
+                    document.getElementById("error").innerHTML = "<p class='text-red-600 mt-1'>Xatoliklar mavjud emas yoki tuzilmani aniqlay olmadik.</p>";
+                }
             });
     }
+
 
 </script>
 </body>

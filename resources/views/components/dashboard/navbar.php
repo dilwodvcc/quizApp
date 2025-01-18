@@ -38,6 +38,12 @@
                 name: "Statistics",
                 uri: "/statistics",
                 icon: "fas fa-chart-bar mr-2"
+            },
+
+            {
+                name: "Take Quiz",
+                uri: "/take-quiz",
+                icon: "fas fa-pen mr-2"
             }
         ]
     let sideBar = document.getElementById("sideBar");

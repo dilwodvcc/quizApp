@@ -15,8 +15,24 @@ class Quiz extends DB
             "user_id" => $user_id,
             "title" => $title,
             "description" => $description,
-            "time_limit" => $time_limit
+            "time_limit" => $time_limit,
         ]);
         return $this->conn->lastInsertId();
+    }
+    public function delete(int $quizId): bool
+    {
+        $query = "DELETE FROM quizzes WHERE id = :quizId";
+        $stmt = $this->conn->prepare($query);
+        return $stmt->execute([
+            "quizId" => $quizId
+        ]);
+
+    }
+    public function getByUserId (int $userId): array|bool
+    {
+        $query = "SELECT * FROM quizzes WHERE user_id = :userId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(["userId" => $userId]);
+        return $stmt->fetchAll();
     }
 }
