@@ -63,40 +63,32 @@ class QuizController
                 apiResponse(["message" => "Quiz not found !"],404);
             }
         }
-        public function update(int $quizId): void
-        {
-            $quizItems = $this->validate([
-                'title' => 'string',
-                'description' => 'string',
-                'timeLimit' => 'int',
-                'questions' => 'array',
-            ]);
-            dd($quizItems);
+    public function update(int $quizId): void
+    {
+        $quizItems = $this->validate([
+            'title' => 'string',
+            'description' => 'string',
+            'timeLimit' => 'int',
+            'questions' => 'array',
+        ]);
 
-//            $quiz = new Quiz();
-//            $question = new Question();
-//            $option = new Option();
-//
-//            //update quiz
-//            $quiz->update($quizId,
-//                $quizItems['title'],
-//                $quizItems['description'],
-//                $quizItems['timeLimit']);
-//
-//            // destroy all question and option
-//            $question->deleteByQuizId($quizId);
-//
-//            $questions = $quizItems['questions'];
-//
-//            foreach ($questions as $questionItem)
-//            {
-//                $question_id = $question->create($quizId, $questionItem['quiz']);
-//                $correct =  $questionItem['correct'];
-//                foreach ($questionItem['options'] as $key => $optionItem)
-//                {
-//                    $option->create($question_id, $optionItem, $correct == $key);
-//                }
-//            }
-//            apiResponse(["message" => "Quiz updated successfully !"],201);
+        $quiz = new Quiz();
+        $question = new Question();
+        $option = new Option();
+
+        $quiz->update($quizId, $quizItems['title'], $quizItems['description'], $quizItems['timeLimit']);
+        $question->deleteByQuizId($quizId);
+
+        $questions = $quizItems['questions'];
+
+        foreach ($questions as $questionItem) {
+            $question_id = $question->create($quizId, $questionItem['quiz']);
+            $correct = $questionItem['correct'];
+            foreach ($questionItem['options'] as $key => $optionItem) {
+                $option->create($question_id, $optionItem, $correct == $key);
+            }
         }
+
+        apiResponse(["message" => "Quiz updated successfully!"], 201);
+    }
 }

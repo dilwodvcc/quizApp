@@ -6,6 +6,14 @@ use App\Models\DB;
 
 class Quiz extends DB
 {
+    public function find ($quizId)
+    {
+        $query = "SELECT * FROM quizzes WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(['id' => $quizId]);
+        return $stmt->fetch();
+    }
+
     public function create(int $user_id, string $title, string $description, int $time_limit): int
     {
         $query = "INSERT INTO quizzes (user_id, title, description, time_limit, updated_at, created_at) 

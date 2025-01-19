@@ -134,11 +134,9 @@
                 document.getElementById('error').innerHTML = '';
                 Object.keys(error.data.errors).forEach(err => {
                     document.getElementById("error").innerHTML = `<p class='text-red-600 mt-1'>${error.data.errors[err]}</p>`;
-                }
+                })
             });
     }
-
-
 </script>
 </body>
 </html>
