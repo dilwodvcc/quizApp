@@ -131,15 +131,9 @@
                 window.location.href = '/my-quizzes';
             })
             .catch(error => {
-                console.error('Xatolik:', error);  // To'liq error ob'ektini ko'rsatish
-                if (error && error.data && error.data.errors) {
-                    console.log(error.data);  // Xatoliklarni ko'rish
-                    Object.keys(error.data.errors).forEach(key => {
-                        document.getElementById("error").innerHTML += `<p class="text-red-600 mt-1">${error.data.errors[key]}</p>`;
-                    });
-                } else {
-                    // Xatoliklar bo'lmasa yoki tuzilmani topmasak
-                    document.getElementById("error").innerHTML = "<p class='text-red-600 mt-1'>Xatoliklar mavjud emas yoki tuzilmani aniqlay olmadik.</p>";
+                document.getElementById('error').innerHTML = '';
+                Object.keys(error.data.errors).forEach(err => {
+                    document.getElementById("error").innerHTML = `<p class='text-red-600 mt-1'>${error.data.errors[err]}</p>`;
                 }
             });
     }

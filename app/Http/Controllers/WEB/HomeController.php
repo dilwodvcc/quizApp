@@ -54,4 +54,11 @@ class HomeController
     {
         view_home('home');
     }
+    public function update(int $id): void
+    {
+        view_dash('update-quiz',
+        [
+            'id' => $id,
+        ]);
+    }
 }

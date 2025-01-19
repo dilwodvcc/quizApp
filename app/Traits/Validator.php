@@ -6,6 +6,8 @@ trait Validator
 {
     public function validate(array $date): array
     {
+//        $update = file_get_contents('php://input');
+//        dd($update);
         $requiredKey = [];
         foreach ($date as $key => $value)
         {

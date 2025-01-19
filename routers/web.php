@@ -23,6 +23,7 @@ Router::get('/statistics', [HomeController::class,  'statistics']);
 Router::get('/how-it-works', [HomeController::class,  'how_it_works']);
 Router::get('/features', [HomeController::class,  'features']);
 Router::get('/take-quiz', [HomeController::class,  'take_quiz']);
+Router::get('/quizzes/{id}/update', [HomeController::class,  'update']);
 
 Router::notFound();
 
