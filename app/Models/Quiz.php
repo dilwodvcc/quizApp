@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\DB;
-
 class Quiz extends DB
 {
     public function find ($quizId)
@@ -20,10 +18,10 @@ class Quiz extends DB
             VALUES (:user_id, :title, :description, :time_limit, NOW(), NOW())";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([
-            "user_id" => $user_id,
-            "title" => $title,
-            "description" => $description,
-            "time_limit" => $time_limit,
+            ":user_id" => $user_id,
+            ":title" => $title,
+            ":description" => $description,
+            ":time_limit" => $time_limit,
         ]);
         return $this->conn->lastInsertId();
     }

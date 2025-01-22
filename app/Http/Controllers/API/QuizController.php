@@ -4,8 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Models\Option;
 use App\Models\Question;
-use App\Traits\Validator;
 use App\Models\Quiz;
+use App\Traits\Validator;
 use JetBrains\PhpStorm\NoReturn;
 use Src\Auth;
 
@@ -17,6 +17,14 @@ class QuizController
     {
         $quizzes = (new Quiz())->getByUserId(Auth::user()->id);
         apiResponse(['quizzes' => $quizzes]);
+    }
+
+    public function show(int $quizId)
+    {
+        $quiz = (new Quiz())->find($quizId);
+        $questions = (new Question())->getWithOptions($quizId);
+        $quiz->questions = $questions;
+        apiResponse($quiz);
     }
 
     #[NoReturn] public function store(): void
@@ -41,29 +49,29 @@ class QuizController
 
         $questions = $quizItems['questions'];
 
-        foreach ($questions as $questionItem)
-        {
+        foreach ($questions as $questionItem) {
             $question_id = $question->create($quiz_id, $questionItem['quiz']);
-            $correct =  $questionItem['correct'];
-            foreach ($questionItem['options'] as $key => $optionItem)
-            {
-                $option->create($quiz_id, $question_id, $correct == $key);
+            $correct = $questionItem['correct'];
+            foreach ($questionItem['options'] as $key => $optionItem) {
+//                dd($optionItem);
+                $option->create($question_id, $optionItem, $correct == $key);
             }
         }
 
-        apiResponse(["message" => "Quiz created successfully !",],201);
-        }
-        #[NoReturn] public function destroy(int $quizId): void
+        apiResponse(["message" => "Quiz created successfully !",], 201);
+    }
+    #[NoReturn] public function destroy(int $quizId): void
+    {
+        $quiz = new Quiz();
+        if ($quiz->delete($quizId))
         {
-            $quiz = new Quiz();
-            if ($quiz->delete($quizId))
-            {
-            apiResponse(["message" => "Quiz deleted successfully !"],201);
-            }else{
-                apiResponse(["message" => "Quiz not found !"],404);
-            }
+        apiResponse(["message" => "Quiz deleted successfully !"],201);
+        }else{
+            apiResponse(["message" => "Quiz not found !"],404);
         }
-    public function update(int $quizId): void
+    }
+
+    #[NoReturn] public function update(int $quizId): void
     {
         $quizItems = $this->validate([
             'title' => 'string',
@@ -76,7 +84,11 @@ class QuizController
         $question = new Question();
         $option = new Option();
 
-        $quiz->update($quizId, $quizItems['title'], $quizItems['description'], $quizItems['timeLimit']);
+        $quiz->update($quizId,
+            $quizItems['title'],
+            $quizItems['description'],
+            $quizItems['timeLimit']);
+
         $question->deleteByQuizId($quizId);
 
         $questions = $quizItems['questions'];

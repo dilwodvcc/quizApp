@@ -12,8 +12,8 @@ class UserAnswer extends DB
             VALUES (:result_id, :option_id, NOW(), NOW())";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([
-            "result_id" => $result_id,
-            "option_id" => $option_id,
+            ":result_id" => $result_id,
+            ":option_id" => $option_id,
         ]);
         return $this->conn->lastInsertId();
     }

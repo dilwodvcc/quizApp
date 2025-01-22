@@ -63,7 +63,7 @@ class User extends DB
         $stmt = $this->conn
             ->prepare($query);
         $stmt->execute([
-            "id" => $id,
+            ":id" => $id,
         ]);
         return $stmt->fetch();
     }

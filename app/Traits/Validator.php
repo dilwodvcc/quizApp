@@ -4,43 +4,23 @@ namespace App\Traits;
 
 trait Validator
 {
-    public function validate(array $rules): array
+    public function validate(array $data): array
     {
-        $inputData = $_REQUEST;
-        $errors = [];
-
-        foreach ($rules as $key => $rule) {
-            if (!isset($inputData[$key]) || empty($inputData[$key])) {
-                $errors[$key] = "$key is required";
+        $update = file_get_contents('php://input');
+        if ($update = json_decode($update, true))
+        {
+            $_REQUEST = array_merge($_REQUEST, $update);
+        }
+        $requiredKey = [];
+        foreach ($data as $key => $value) {
+            if (array_key_exists($key, $_REQUEST) and !empty($_REQUEST[$key])) {
                 continue;
             }
-
-            if (!$this->validateType($inputData[$key], $rule)) {
-                $errors[$key] = "$key must be of type $rule";
-            }
+            $requiredKey[$key] = $key . " is required";
         }
-
-        if (!empty($errors)) {
-            apiResponse(['errors' => $errors], 400);
-            exit;
+        if (!empty($requiredKey)) {
+            apiResponse(['errors' => $requiredKey], 400);
         }
-
-        return $inputData;
-    }
-
-    private function validateType($value, string $type): bool
-    {
-        switch ($type) {
-            case 'string':
-                return is_string($value);
-            case 'int':
-                return filter_var($value, FILTER_VALIDATE_INT) !== false;
-            case 'float':
-                return filter_var($value, FILTER_VALIDATE_FLOAT) !== false;
-            case 'array':
-                return is_array($value);
-            default:
-                return false;
-        }
+        return $_REQUEST;
     }
 }

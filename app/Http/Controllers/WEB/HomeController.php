@@ -57,18 +57,8 @@ class HomeController
     }
     public function update(int $id): void
     {
-        // Quiz ma'lumotlarini olish
-        $quiz = (new \App\Models\Quiz)->find($id);
-
-        if (!$quiz) {
-            // Agar quiz topilmasa, xato qaytarish
-            apiResponse(['error' => 'Quiz not found'], 404);
-            return;
-        }
-
         view_dash('update-quiz', [
             'id' => $id,
-            'quiz' => $quiz
         ]);
     }
 

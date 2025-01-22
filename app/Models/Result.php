@@ -12,12 +12,12 @@ class Result extends DB
             VALUES (:user_id, :quiz_id, :start_time, :end_time, :time_spent, :score, NOW(), NOW())";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([
-            "user_id" => $user_id,
-            "quiz_id" => $quiz_id,
-            "start_time" => $start_time,
-            "end_time" => $end_time,
-            "time_spent" => $time_spent,
-            "score" => $score,
+            ":user_id" => $user_id,
+            ":quiz_id" => $quiz_id,
+            ":start_time" => $start_time,
+            ":end_time" => $end_time,
+            ":time_spent" => $time_spent,
+            ":score" => $score,
         ]);
         return $this->conn->lastInsertId();
     }
