@@ -9,11 +9,7 @@ class QuizController
 {
     public function take_quiz(string $uniqueValue): void
     {
-        $quiz = (new Quiz())->findByUniqueValue($uniqueValue);
-        if ($quiz)
-        {
-            view_dash('take-quiz');
-        }
-        view_home('404');
+            view_dash('take-quiz',
+            ['uniqueValue' => $uniqueValue]);
     }
 }

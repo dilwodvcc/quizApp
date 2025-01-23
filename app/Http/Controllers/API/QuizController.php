@@ -19,12 +19,28 @@ class QuizController
         apiResponse(['quizzes' => $quizzes]);
     }
 
-    public function show(int $quizId)
+    #[NoReturn] public function show($quizId): void
     {
         $quiz = (new Quiz())->find($quizId);
-        $questions = (new Question())->getWithOptions($quizId);
-        $quiz->questions = $questions;
-        apiResponse($quiz);
+        if ($quiz)
+        {
+            $questions = (new Question())->getWithOptions($quizId);
+            $quiz->questions = $questions;
+            apiResponse($quiz);
+        }
+        apiResponse(['error' => ['message' => 'Quiz not found']], 404);
+    }
+
+    #[NoReturn] public function showByUniqueValue(string $uniqueValue): void
+    {
+        $quiz = (new Quiz())->findByUniqueValue($uniqueValue);
+        if ($quiz)
+        {
+            $questions = (new Question())->getWithOptions($quiz->id);
+            $quiz->questions = $questions;
+            apiResponse($quiz);
+        }
+        apiResponse(['error' => ['message' => 'Quiz not found.']], 404);
     }
 
     #[NoReturn] public function store(): void

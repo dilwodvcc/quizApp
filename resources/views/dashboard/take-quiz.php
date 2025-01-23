@@ -31,8 +31,8 @@
 <main class="flex-grow container mx-auto px-4 py-8">
     <div id="start-card"      class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6 ">
         <div class="text-center">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Quiz Title</h2>
-            <p class="text-xl text-gray-700 mb-6">Quiz description Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem, itaque natus recusandae sequi temporibus voluptates.</p>
+            <h2 id="title" class="text-2xl font-bold text-gray-800 mb-4">Quiz Title</h2>
+            <p id="description" class="text-xl text-gray-700 mb-6">Quiz description Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem, itaque natus recusandae sequi temporibus voluptates.</p>
 
             <div class="flex justify-center space-x-12 mb-8">
                 <div class="text-center">
@@ -146,6 +146,29 @@
     </div>
 </footer>
 
+<script >
+    async function getQuizItems() {
+        const { default: apiFetch } = await import("/js/utils/apiFetch.js");
+        await apiFetch(`/quizzes/<?php echo $uniqueValue?>/getByUniqueValue`,
+            { method: 'GET'})
+            .then((data) =>
+            {
+                document.getElementById('title').innerText = data.title;
+                document.getElementById('description').innerText = data.description;
+                document.getElementById('time-taken').innerText = data.time_limit + ":00";
+
+            })
+            .catch(error => {
+                console.log(error.data);
+                console.error(error.data.errors);
+
+                Object.keys(error.data.errors).forEach(key => {
+                    document.getElementById("error").innerHTML += `<p class="text-red-600 mt-1">${error.data.errors[key]}</p>`;
+                });
+            });
+    }
+    getQuizItems()
+</script>
 <!-- Quiz JavaScript -->
 <script>
     let startBtn = document.getElementById('start-btn');
@@ -314,10 +337,6 @@
                 }
             });
         });
-
-
-
-
 </script>
 </body>
 </html>

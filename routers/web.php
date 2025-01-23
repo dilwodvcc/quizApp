@@ -25,7 +25,7 @@ Router::get('/how-it-works', [HomeController::class,  'how_it_works']);
 Router::get('/features', [HomeController::class,  'features']);
 Router::get('/quizzes/{id}/update', [HomeController::class,  'update']);
 
-
+//quizzes
 Router::get('/take-quiz/{id}', [QuizController::class,  'take_quiz']);
 
 

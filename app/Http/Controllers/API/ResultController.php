@@ -26,10 +26,8 @@ class ResultController
                 $quiz->id,
                 $quiz->time_limit
             );
-            $questions = (new Question())->getWithOptions($quiz->id);
             apiResponse([
-                'massage' => "Quiz created successfully!",
-                'questions' => $questions
+                'massage' => "Quiz created successfully!"
                 ], 201);
         }
         apiResponse([
