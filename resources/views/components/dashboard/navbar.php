@@ -1,5 +1,3 @@
-
-
 <aside class="bg-white w-64 min-h-screen flex flex-col shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in fixed md:static z-30" id="sidebar">
     <div class="p-4 border-b flex items-center justify-between">
         <a href="/"><h2 class="text-2xl font-bold text-yellow-800">Quiz App</h2></a>

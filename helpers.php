@@ -17,17 +17,20 @@ function view_dash($page, $data = []): void
 {
     extract($data);
     require 'resources/views/dashboard/' . $page . '.php';
+    exit();
 }
 
 function view_home($page, $data = []): void
 {
     extract($data);
     require 'resources/views/' . $page . '.php';
+    exit();
 }
 function view_auth($page, $data = []): void
 {
     extract($data);
     require 'resources/views/auth/' . $page . '.php';
+    exit();
 }
 
 #[NoReturn] function redirect($page): void

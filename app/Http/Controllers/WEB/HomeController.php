@@ -43,10 +43,6 @@ class HomeController
     {
             view_dash('statistics');
     }
-    #[NoReturn] public function take_quiz(): void
-    {
-        view_dash('take-quiz');
-    }
     #[NoReturn] public function how_it_works(): void
     {
         view_home('how-it-works');
