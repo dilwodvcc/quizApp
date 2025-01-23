@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\DB;
+use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\Result;
 use App\Traits\Validator;
@@ -25,7 +26,11 @@ class ResultController
                 $quiz->id,
                 $quiz->time_limit
             );
-            apiResponse(['massage' => "Quiz created successfully!"], 201);
+            $questions = (new Question())->getWithOptions($quiz->id);
+            apiResponse([
+                'massage' => "Quiz created successfully!",
+                'questions' => $questions
+                ], 201);
         }
         apiResponse([
             'error' =>
