@@ -14,10 +14,11 @@ class Quiz extends DB
 
     public function create(int $user_id, string $title, string $description, int $time_limit): int
     {
-        $query = "INSERT INTO quizzes (user_id, title, description, time_limit, updated_at, created_at) 
-            VALUES (:user_id, :title, :description, :time_limit, NOW(), NOW())";
+        $query = "INSERT INTO quizzes (unique_value,user_id, title, description, time_limit, updated_at, created_at) 
+            VALUES (:uniqueValue,:user_id, :title, :description, :time_limit, NOW(), NOW())";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([
+            ":uniqueValue" => uniqid(),
             ":user_id" => $user_id,
             ":title" => $title,
             ":description" => $description,
