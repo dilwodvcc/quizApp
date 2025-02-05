@@ -1,5 +1,6 @@
 <?php require "../resources/views/components/dashboard/header.php";?>
-
+<script src="<?php echo assets('/js/getUserInfo.js')?>"></script>
+<script src="<?php echo assets('/js/add-quiz.js')?>"></script>
 <body class="bg-gray-100">
 <div class="flex min-h-screen">
     <!-- Sidebar -->
@@ -15,7 +16,7 @@
                 <div class="flex items-center space-x-4">
 
                     <div class="flex items-center space-x-2">
-                        <img src="https://i.pinimg.com/736x/63/ed/ad/63edad1b2809a6f13048bc166f8e6f7e.jpg" alt="Profile" class="w-10 h-10 rounded-full">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt61U1nKzE_CguMw0Xm5M7qMZ_2SHQS8cDOw&s" alt="Profile" class="w-10 h-10 rounded-full">
                         <span class="text-gray-700 font-medium" id="userName"></span>
                     </div>
                 </div>
@@ -116,13 +117,12 @@
         </main>
     </div>
 </div>
-<script src="./js/add-quiz.js"></script>
 <script >
     async function store() {
         event.preventDefault();
         let form = document.getElementById("quizForm"),
             formData = new FormData(form);
-        const { default: apiFetch } = await import("/js/utils/apiFetch.js");
+        const { default: apiFetch } = await import("<?php echo assets('/js/utils/apiFetch.js')?>");
 
         document.getElementById("error").innerHTML = "";
 

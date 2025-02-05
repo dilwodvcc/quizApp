@@ -4,11 +4,8 @@ namespace App\Models;
 
 use App\Models\DB;
 use PDO;
-
-class Question extends DB
-{
-    public function create(int $quiz_id, string $question_text): int
-    {
+class Question extends DB {
+    public function create(int $quiz_id, string $question_text): int {
         $query = "INSERT INTO questions (quiz_id,question_text, updated_at, created_at) 
             VALUES (:quiz_id,:question_text, NOW(), NOW())";
         $stmt = $this->conn->prepare($query);
@@ -18,16 +15,14 @@ class Question extends DB
         ]);
         return $this->conn->lastInsertId();
     }
-    public function deleteByQuizId(int $quizId): bool
-    {
+    public function deleteByQuizId(int $quizId): bool {
         $query = "DELETE FROM questions WHERE quiz_id = :quiz_id";
         $stmt = $this->conn->prepare($query);
         return $stmt->execute([
             ":quiz_id" => $quizId
         ]);
     }
-    public function getWithOptions(int $quizId): array
-    {
+    public function getWithOptions(int $quizId): array {
         $stmt = $this->conn->prepare("SELECT * FROM questions WHERE quiz_id = :quizId");
         $stmt->execute(['quizId' => $quizId]);
         $questions = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -54,5 +49,14 @@ class Question extends DB
         }
 
         return $questions;
+    }
+
+    public function getQuestionCountByQuizId(int $quizId) {
+        $query = "SELECT COUNT(id) AS questionCount FROM questions WHERE quiz_id = :quizId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([
+            ':quizId' => $quizId
+        ]);
+        return $stmt->fetch();
     }
 }

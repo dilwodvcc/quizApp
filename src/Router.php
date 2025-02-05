@@ -1,8 +1,6 @@
 <?php
 
 namespace Src;
-use Src\middlewares\AuthMiddleware;
-
 class Router{
     public string $currentRoute;
 
@@ -11,7 +9,6 @@ class Router{
     }
     public static function gerRoute(): false|array|int|string|null {
         return (new static())->currentRoute;
-
     }
 
     public static function getResource($route): false|string {
@@ -25,7 +22,7 @@ class Router{
         }
         return $resourceValue ?: false;
     }
-    public static function runCallback(string $route, callable|array $callback,?string $middleware=null): void {
+    public static function runCallback(string $route, callable|array $callback, ?string $middleware=null): void {
         if(gettype($callback) == 'array'){
             $resourceValue = self::getResource($route);
             if ($resourceValue) {
@@ -43,7 +40,6 @@ class Router{
             }
         }
         $resourceValue = self::getResource($route);
-
         if ($resourceValue) {
             $resourceRoute = str_replace('{id}', $resourceValue, $route);
             if ($resourceRoute == self::gerRoute()) {
@@ -52,7 +48,6 @@ class Router{
                 exit();
             }
         }
-
         if ($route == self::gerRoute()) {
             self::middleware($middleware);
             $callback();
@@ -60,44 +55,29 @@ class Router{
         }
     }
 
-    public static function get(string $route, callable|array $callback,?string $middleware=null): void {
+    public static function get(string $route, callable|array $callback, ?string $middleware=null): void {
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            self::runCallback($route, $callback,$middleware);
+            self::runCallback($route, $callback, $middleware);
         }
     }
 
-    public static function post(string $route, callable|array $callback,?string $middleware=null): void {
+    public static function post(string $route, callable|array $callback, ?string $middleware=null): void {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            self::runCallback($route, $callback,$middleware);
+            self::runCallback($route, $callback, $middleware);
         }
     }
 
-    public static function put(string $route, callable|array $callback,?string $middleware=null): void {
+    public static function put(string $route, callable|array $callback, ?string $middleware=null): void {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'PUT') {
             if ((isset($_POST['_method']) && $_POST['_method'] == 'PUT') || $_SERVER['REQUEST_METHOD'] == 'PUT'){
-                self::runCallback($route, $callback,$middleware);
+                self::runCallback($route, $callback, $middleware);
             }
         }
     }
 
-    public static function delete(string $route, callable|array $callback,?string $middleware=null): void {
+    public static function delete(string $route, callable|array $callback, ?string $middleware=null): void {
         if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-            self::runCallback($route, $callback,$middleware);
-        }
-    }
-    public static function middleware(?string $middleware): void
-    {
-        if ($middleware)
-        {
-            $middlewareConfig = require '../config/middleware.php';
-            if(is_array($middlewareConfig))
-            {
-                if (array_key_exists($middleware, $middlewareConfig))
-                {
-                    $middlewareClass = $middlewareConfig[$middleware];
-                    (new $middlewareClass)->handle();
-                }
-            }
+            self::runCallback($route, $callback, $middleware);
         }
     }
 
@@ -107,10 +87,19 @@ class Router{
     public static function isTelegram(): bool {
         return mb_stripos(self::gerRoute(), '/telegram') === 0;
     }
-    public static function notFound(): void
-    {
-        if(self::isApiCall())
-        {
+    public static function middleware(?string $middleware=null): void {
+        if($middleware){
+            $middlewareConfig = require_once __DIR__ . '/../config/middlewares.php';
+            if (is_array($middlewareConfig)) {
+                if (array_key_exists($middleware, $middlewareConfig)) {
+                    $middlewareConfig=$middlewareConfig[$middleware];
+                    (new $middlewareConfig)->handle();
+                }
+            }
+        }
+    }
+    public static function notFound(): void {
+        if(self::isApiCall()) {
             apiResponse([
                 'error' => 'Not found'
             ],404);

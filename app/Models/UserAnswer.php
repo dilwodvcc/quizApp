@@ -1,46 +1,38 @@
-
 <?php
+
 namespace App\Models;
-
 use App\Models\DB;
+class UserAnswer extends DB {
 
-class UserAnswer extends DB
-{
-public function create(int $result_id, int $option_id): int
-{
-$created_at = date("Y-m-d H:i:s");
-$updated_at = $created_at;
+    public function find(int $id) {
+        $query = "SELECT * FROM answers WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch();
+    }
+    public function create(int $result_id, int $option_id): int {
+        $query = "INSERT INTO user_answers (result_id, option_id, created_at, updated_at) 
+            VALUES (:result_id, :option_id, NOW(), NOW())";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([
+            "result_id" => $result_id,
+            "option_id" => $option_id,
+        ]);
+        return $this->conn->lastInsertId();
+    }
 
-$query = "INSERT INTO user_answers (result_id, option_id, created_at, updated_at)
-VALUES (?, ?, ?, ?)";
-
-$stmt = $this->conn->prepare($query);
-$stmt->bind_param("iiss", $result_id, $option_id, $created_at, $updated_at);
-
-if ($stmt->execute()) {
-// Yangi yozuv qo'shilganidan so'ng uning ID'sini qaytarish
-return $stmt->insert_id;
-} else {
-// Xato yuz berayotgan bo'lsa
-return 0;
-}
-}
-
-// Foydalanuvchining javoblarini olish
-public function getAnswersByResultId(int $result_id)
-{
-$query = "SELECT * FROM user_answers WHERE result_id = ?";
-$stmt = $this->conn->prepare($query);
-$stmt->bind_param("i", $result_id);
-$stmt->execute();
-
-$result = $stmt->get_result();
-$answers = [];
-
-while ($row = $result->fetch_assoc()) {
-$answers[] = $row;
-}
-
-return $answers;
-}
+    public function getCorrectAnswer(int $userId, int $quizId) {
+        $query = "SELECT COUNT(answers.id) AS correctAnswerCount FROM answers
+                        JOIN results ON answers.result_id = results.id
+                        JOIN options ON answers.option_id = options.id
+                WHERE results.user_id = :userId
+                        AND results.quiz_id = :quizId
+                        AND options.is_correct = TRUE;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([
+            ':userId' => $userId,
+            ':quizId' => $quizId
+        ]);
+        return $stmt->fetch();
+    }
 }

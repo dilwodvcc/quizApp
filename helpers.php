@@ -38,3 +38,6 @@ function view_auth($page, $data = []): void
     header('Location:'. $page);
     exit;
 }
+function assets($fileName): string {
+    return $_ENV['APP_URL'] .'public' . $fileName;
+}

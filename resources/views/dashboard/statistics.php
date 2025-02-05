@@ -1,9 +1,10 @@
 <?php require "../resources/views/components/dashboard/header.php";?>
-
+<script src="<?php echo assets('/js/getUserInfo.js')?>"></script>
+<script src="<?php echo assets('/js/add-quiz.js')?>"></script>
 <body class="bg-gray-100">
 <div class="min-h-screen flex">
     <!-- Sidebar -->
-        <?php require "../resources/views/components/dashboard/navbar.php";?>
+    <?php require "../resources/views/components/dashboard/navbar.php";?>
     <!-- Main Content -->
     <div class="flex-1">
         <!-- Top Navigation -->
@@ -15,7 +16,7 @@
                 <div class="flex items-center space-x-4">
 
                     <div class="flex items-center space-x-2">
-                        <img src="https://i.pinimg.com/736x/63/ed/ad/63edad1b2809a6f13048bc166f8e6f7e.jpg" alt="Profile" class="w-10 h-10 rounded-full">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt61U1nKzE_CguMw0Xm5M7qMZ_2SHQS8cDOw&s" alt="Profile" class="w-10 h-10 rounded-full">
                         <span class="text-gray-700 font-medium" id="userName"></span>
                     </div>
                 </div>
@@ -24,7 +25,6 @@
         <!-- Main Content Area -->
         <main class="p-6">
             <h1 class="text-2xl font-bold text-gray-800 mb-6">Statistics Overview</h1>
-
             <!-- Stats Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <div class="bg-white p-6 rounded-lg shadow">
@@ -35,7 +35,7 @@
                                   d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                         </svg>
                     </div>
-                    <p class="text-3xl font-bold mt-2">42</p>
+                    <p class="text-3xl font-bold mt-2" id="total-quizzes-count">42</p>
                     <p class="text-green-500 text-sm mt-2">↑ 12% from last month</p>
                 </div>
 
@@ -179,5 +179,6 @@
         }
     });
 </script>
+</div>
 </body>
 </html>

@@ -1,65 +1,36 @@
 <?php
 
 namespace App\Models;
-
-class Quiz extends DB
-{
-    public function find ($quizId)
-    {
-        $query = "SELECT * FROM quizzes WHERE id = :id";
+use App\Models\DB;
+class Result extends DB {
+    public function find(int $id) {
+        $query = "SELECT * FROM results WHERE id = :id";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute(['id' => $quizId]);
+        $stmt->execute(['id' => $id]);
         return $stmt->fetch();
     }
-
-    public function create(int $user_id, string $title, string $description, int $time_limit): int
-    {
-        $query = "INSERT INTO quizzes (unique_value,user_id, title, description, time_limit, updated_at, created_at) 
-            VALUES (:uniqueValue,:user_id, :title, :description, :time_limit, NOW(), NOW())";
+    public function create(int $userID, int $quizID, int $limit) {
+        $query = "INSERT INTO results (user_id, quiz_id, started_at, finished_at) 
+                        VALUES (:user_id, :quizId, NOW(), :finishedAt)";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([
-            ":uniqueValue" => uniqid(),
-            ":user_id" => $user_id,
-            ":title" => $title,
-            ":description" => $description,
-            ":time_limit" => $time_limit,
+            ':user_id' => $userID,
+            ':quizId' => $quizID,
+            ':finishedAt' => date("Y-m-d H:i:s", strtotime("+$limit minutes"))
         ]);
-        return $this->conn->lastInsertId();
-    }
-    public function delete(int $quizId): bool
-    {
-        $query = "DELETE FROM quizzes WHERE id = :quizId";
-        $stmt = $this->conn->prepare($query);
-        return $stmt->execute([
-            "quizId" => $quizId
-        ]);
-
-    }
-    public function getByUserId (int $userId): array|bool
-    {
-        $query = "SELECT * FROM quizzes WHERE user_id = :userId";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute(["userId" => $userId]);
-        return $stmt->fetchAll();
+        $resultId = $this->conn->lastInsertId();
+        return $this->find($resultId);
     }
 
-    public function update(int $quizId,string $title, string $description, int $time_limit): bool
-    {
-        $query = "UPDATE quizzes SET title = :title, description = :description, time_limit = :time_limit WHERE id = :quizId";
-        $stmt = $this->conn->prepare($query);
-        return $stmt->execute([
-            "title" => $title,
-            "description" => $description,
-            "time_limit" => $time_limit,
-            "quizId" => $quizId
-        ]);
-    }
 
-    public function findByUniqueValue (string $uniqueValue)
+    public function getUserResult (int $userID, int $quizID)
     {
-        $query = "SELECT * FROM quizzes WHERE unique_value = :uniqueValue";
+        $query = "SELECT * FROM results WHERE user_id = :userId AND quiz_id = :quizId";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([':uniqueValue' => $uniqueValue]);
+        $stmt->execute([
+            ':userId' => $userID,
+            ':quizId' => $quizID
+        ]);
         return $stmt->fetch();
     }
 }

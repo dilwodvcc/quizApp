@@ -5,11 +5,8 @@ namespace Src;
 use App\Models\DB;
 use App\Models\User;
 use JetBrains\PhpStorm\NoReturn;
-
-class Auth
-{
-    public static function getToken(): array|string
-    {
+class Auth {
+    public static function getToken(): array|string {
         $headers = getallheaders();
         if (!isset($headers['Authorization'])) {
             apiResponse([
@@ -24,11 +21,10 @@ class Auth
         return str_replace('Bearer ', '', $headers['Authorization']);
     }
 
-    public static function getUserCorrectToken()
-    {
+    public static function getUserCorrectToken() {
         $db = new DB();
         $pdo = $db->getConnection();
-        $query = "SELECT * FROM `user_api_token` WHERE `token`=:token and expires_at > NOW()";
+        $query = "SELECT * FROM `user_api_tokens` WHERE `token`=:token and expires_at > NOW()";
         $stmt = $pdo->prepare($query);
         $stmt->execute([
             ':token' => self::getToken()
@@ -36,16 +32,14 @@ class Auth
         return $stmt->fetch();
     }
 
-    public static function check(): bool
-    {
+    public static function check(): bool {
         if (!self::getToken()) {
             apiResponse(['errors' => ['message' => 'Unauthorized']], 401);
         }
         return true;
     }
 
-    public static function user(): mixed
-    {
+    public static function user(): mixed {
         $token = self::getUserCorrectToken();
         if (!$token) {
             apiResponse([
@@ -56,4 +50,3 @@ class Auth
         return $user->getUserById($token->user_id);
     }
 }
-

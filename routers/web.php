@@ -1,3 +1,4 @@
+
 <?php
 
 use App\Http\Controllers\WEB\HomeController;
@@ -24,12 +25,6 @@ Router::get('/statistics', [HomeController::class,  'statistics']);
 Router::get('/how-it-works', [HomeController::class,  'how_it_works']);
 Router::get('/features', [HomeController::class,  'features']);
 Router::get('/quizzes/{id}/update', [HomeController::class,  'update']);
-
 //quizzes
 Router::get('/take-quiz/{id}', [QuizController::class,  'take_quiz']);
-
-
 Router::notFound();
-
-//dd($user->getUser("abdul@gmail.com",'123456'));
-//dd($user->createUser("Fazliddinov Abdulloh","abdulloh207@gmail.com",'123456'));

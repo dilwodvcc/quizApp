@@ -1,12 +1,12 @@
 
 function apiFetch(uri, options = {}) {
-    const baseUrl = 'http://localhost:8080/api',
+    const baseUrl = 'http://api',
         token = localStorage.getItem('token');
     const defaultHeaders = {};
     if (token) {
         defaultHeaders.Authorization = `Bearer ${token}`;
     }
-    return fetch(`${baseUrl}${uri}`, {
+    return fetch(`${baseUrl}${uri}`,{
         ...options,
         headers: { ...defaultHeaders, ...options.headers },
     })

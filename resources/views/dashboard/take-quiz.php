@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Take Quiz - Quiz Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/js/getUserInfo.js"></script>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-100">
-<script src="/js/dashboard/getUserInfo.js"></script>
+<script src="<?php echo assets('/js/getUserInfo.js')?>"></script>
+<script src="<?php echo assets('/js/add-quiz.js')?>"></script>
 <div class="flex flex-col min-h-screen bg-gray-100">
     <!-- Navigation -->
     <nav class="bg-white shadow-lg">
@@ -22,7 +22,7 @@
                         <a href="/dashboard" class="text-gray-600 hover:text-gray-900">Dashboard</a>
                         <!--                            <a href="#how-it-works" class="text-gray-600 hover:text-gray-900">How It Works</a>-->
                         <!--                            <a href="/login" class="text-gray-600 hover:text-gray-900">Login</a>-->
-                        <a href="/login"
+                        <a href="/register"
                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
                             Create Quiz
                         </a>
@@ -56,12 +56,12 @@
                     Accusamus delectus dolorum eligendi esse excepturi in quam qui veritatis voluptatibus?
                     Dolore.</p>
 
-                <div class="flex justify-center mb-8 items-center">
+                <div class="flex justify-center space-x-12 mb-8">
                     <div class="text-center">
                         <!--                            <p class="text-3xl font-bold text-blue-600" id="final-score">0/10</p>-->
                     </div>
                     <div class="text-center">
-                        <p class="text-3xl font-bold text-blue-600" id="time-taken"></p>
+                        <p class="text-3xl font-bold text-blue-600" id="time-taken">5:00</p>
                         <p class="text-gray-600">Time Limit</p>
                     </div>
                 </div>
@@ -131,8 +131,8 @@
         </div>
         <div id="results-card" class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6 hidden">
             <div class="text-center">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Quiz Complete!</h2>
-                <h3 class="text-xl text-gray-700 mb-6">JavaScript Fundamentals Quiz</h3>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4" id="result-title">Quiz Complete!</h2>
+                <h3 class="text-xl text-gray-700 mb-6" id="result-description">JavaScript Fundamentals Quiz</h3>
 
                 <div class="flex justify-center space-x-12 mb-8">
                     <div class="text-center">
@@ -140,7 +140,7 @@
                         <p class="text-gray-600">Final Score</p>
                     </div>
                     <div class="text-center">
-                        <p class="text-3xl font-bold text-blue-600" id="time-taken">0:00</p>
+                        <p class="text-3xl font-bold text-blue-600" id="result-time-taken">0:00</p>
                         <p class="text-gray-600">Time Taken</p>
                     </div>
                 </div>
@@ -161,13 +161,13 @@
             </div>
         </div>
     </footer>
-
     <!-- Quiz JavaScript -->
     <script>
-        let questions;
-        let quizData;
+        let questions,
+            quizData,
+            result;
         async function getQuizItems() {
-            const {default: apiFetch} = await import('/js/utils/apiFetch.js');
+            const {default: apiFetch} = await import("<?php echo assets('/js/utils/apiFetch.js')?>");
             try {
                 const data = await apiFetch(`/quizzes/<?php echo $uniqueValue; ?>/getByUniqueValue`, {
                     method: 'GET'
@@ -235,16 +235,19 @@
                 // send request to an API
                 async function startQuiz() {
                     console.log(quizData)
-                    const {default: apiFetch} = await import('/js/utils/apiFetch.js');
+                    const {default: apiFetch} = await import("<?php echo assets('/js/utils/apiFetch.js')?>");
                     await apiFetch('/results', {method: 'POST', body: JSON.stringify({quiz_id: quizData.id})})
                         .then((data) => {
-                            console.log(data)
+                            result =data.result;
                         })
                         .catch((error) => {
-                            document.getElementById('error').innerHTML = '';
-                            Object.keys(error.data.errors).forEach(err => {
-                                document.getElementById('error').innerHTML += `<p class="text-red-500 mt-1">${error.data.errors[err]}</p>`;
-                            })
+                            let resultData = error.data.data.result;
+                            document.getElementById('result-title').innerText = resultData.quiz.title;
+                            document.getElementById('result-description').innerText = resultData.quiz.description;
+                            document.getElementById('final-score').innerText = resultData.correct_answer_count +'/'+ resultData.question_count;
+                            document.getElementById('result-time-taken').innerText = resultData.time_taken + ":00";
+                            document.getElementById('results-card').classList.remove('hidden');
+                            document.getElementById('questionContainer').classList.add('hidden');
                         });
                 }
                 startQuiz();
@@ -287,7 +290,7 @@
                 }
             });
 
-            document.getElementById('submit-quiz').addEventListener('click', () => {
+            document.getElementById('submit-quiz').addEventListener('click', async () => {
                 let form = document.getElementById('options');
                 let formData = new FormData(form);
                 if (!formData.get('answer')) {
@@ -300,16 +303,36 @@
                 questions.splice(currentQuestionIndex, 1);
                 let question = questions[currentQuestionIndex],
                     questionContainer = document.getElementById('questionContainer');
+                async function submitAnswer()
+                {
+                    const {default: apiFetch} = await import("<?php echo assets('/js/utils/apiFetch.js')?>");
+                    await apiFetch('/answers', {method: 'POST',
+                        body: JSON.stringify({
+                            result_id: result.id,
+                            option_id: formData.get('answer')
+                        })})
+
+                        .then((data) => {
+                        })
+                        .catch((error) =>
+                        {
+                            document.getElementById('error').innerHTML = '';
+                            Object.keys(error.data.errors).forEach(err =>
+                            {
+                                document.getElementById('error').innerHTML += `<p class="text-red-500 mt-1">${error.data.errors[err]}</p>`;
+                            })
+                        });
+                }
+                submitAnswer();
                 if (question) {
                     displayQuestion(question);
-                } else {
+                }else {
                     // display result
                     questionContainer.innerHTML = '';
                     document.getElementById('results-card').classList.remove('hidden');
                 }
             });
         }
-
         quiz();
     </script>
     <script>

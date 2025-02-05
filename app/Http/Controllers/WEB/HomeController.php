@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\WEB;
 
-use App\Models\Quiz;
 use JetBrains\PhpStorm\NoReturn;
 
 class HomeController
@@ -25,7 +24,7 @@ class HomeController
     }
     #[NoReturn] public function add_quiz(): void
     {
-            require "public/js/add-quiz.js";
+        require "public/js/add-quiz.js";
     }
     #[NoReturn] public function create_quiz(): void
     {
@@ -33,15 +32,15 @@ class HomeController
     }
     #[NoReturn] public function dashboard(): void
     {
-            view_dash('dashboard');
+        view_dash('dashboard');
     }
     #[NoReturn] public function my_quizzes(): void
     {
-            view_dash('my-quizzes');
+        view_dash('my-quizzes');
     }
     #[NoReturn] public function statistics(): void
     {
-            view_dash('statistics');
+        view_dash('statistics');
     }
     #[NoReturn] public function how_it_works(): void
     {

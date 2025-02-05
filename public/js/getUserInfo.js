@@ -1,6 +1,6 @@
 
 async function user() {
-    const {default: apiFetch} = await import('../js/utils/apiFetch.js');
+    const {default: apiFetch} = await import('/js/utils/apiFetch.js');
     await apiFetch('/users/getInfo', {method: 'GET'})
         .then((user) => {
             document.getElementById('userName').innerText = user.data.full_name;

@@ -1,4 +1,6 @@
 <?php require "../resources/views/components/home/header.php"; ?>
+<script src="<?php echo assets('/js/getUserInfo.js')?>"></script>
+<script src="<?php echo assets('/js/add-quiz.js')?>"></script>
 <section class="bg-white dark:bg-gray-900">
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div class="mx-auto max-w-screen-sm text-center">

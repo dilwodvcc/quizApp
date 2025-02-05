@@ -31,11 +31,9 @@ class QuizController
         apiResponse(['error' => ['message' => 'Quiz not found']], 404);
     }
 
-    #[NoReturn] public function showByUniqueValue(string $uniqueValue): void
-    {
+    #[NoReturn] public function showByUniqueValue(string $uniqueValue): void {
         $quiz = (new Quiz())->findByUniqueValue($uniqueValue);
-        if ($quiz)
-        {
+        if ($quiz)  {
             $questions = (new Question())->getWithOptions($quiz->id);
             $quiz->questions = $questions;
             apiResponse($quiz);
@@ -81,7 +79,7 @@ class QuizController
         $quiz = new Quiz();
         if ($quiz->delete($quizId))
         {
-        apiResponse(["message" => "Quiz deleted successfully !"],201);
+            apiResponse(["message" => "Quiz deleted successfully !"],201);
         }else{
             apiResponse(["message" => "Quiz not found !"],404);
         }

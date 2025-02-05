@@ -1,4 +1,7 @@
+
 <?php require "../resources/views/components/home/header.php";?>
+<script src="<?php echo assets('/js/getUserInfo.js')?>"></script>
+<script src="<?php echo assets('/js/add-quiz.js')?>"></script>
 <body class="bg-gradient-to-b from-gray-900 to-black min-h-screen flex items-center justify-center text-white">
 
 <div class="max-w-md w-full space-y-8 bg-gray-800 p-8 rounded-xl shadow-2xl transform transition duration-300 hover:scale-105">
@@ -64,5 +67,29 @@
     </form>
 </div>
 </body>
-<script src="./js/register.js"></script>
+<script>
+    async function register() {
+        event.preventDefault();
+        let form = document.getElementById("form"),
+            formData = new FormData(form);
+        const { default: apiFetch } = await import("<?php echo assets('/js/utils/apiFetch.js')?>");
+
+        document.getElementById("error").innerHTML = "";
+
+        await apiFetch('/register', { method: 'POST', body: formData })
+            .then((data) =>
+            {
+                localStorage.setItem('token',data.token);
+                window.location.href = '/dashboard'
+            })
+            .catch(error => {
+                console.log(error.data);
+                console.error(error.data.errors);
+
+                Object.keys(error.data.errors).forEach(key => {
+                    document.getElementById("error").innerHTML += `<p class="text-red-600 mt-1">${error.data.errors[key]}</p>`;
+                });
+            });
+    }
+</script>
 </html>

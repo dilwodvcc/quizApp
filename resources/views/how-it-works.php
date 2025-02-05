@@ -1,67 +1,57 @@
 <?php require "../resources/views/components/home/header.php";?>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="<?php echo assets('/js/getUserInfo.js')?>"></script>
+    <script src="<?php echo assets('/js/add-quiz.js')?>"></script>
 
-<body class="bg-gray-100">
-<div class="min-h-screen flex flex-col">
+    <body class="bg-gradient-to-b from-blue-50 to-indigo-100 min-h-screen flex flex-col">
+    <!-- Navbar -->
     <?php require "../resources/views/components/home/navbar.php";?>
-    <!-- Header -->
-    <header class="bg-white shadow-sm p-6">
-        <h1 class="text-3xl font-bold text-center text-gray-800">How It Works</h1>
+
+    <!-- Hero Section -->
+    <header class="flex-grow flex items-center justify-center bg-gradient-to-b from-white via-indigo-50 to-indigo-100 py-32">
+        <div class="text-center">
+            <h1 class="text-5xl font-extrabold text-gray-800 sm:text-6xl">
+                <span>Build and Share</span>
+                <span class="block text-indigo-600">Interactive Quizzes</span>
+            </h1>
+            <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+                Engage your audience with fun quizzes, share knowledge, and track progress.
+                Perfect for educators, trainers, and curious learners.
+            </p>
+            <div class="mt-8 space-y-3 sm:space-y-0 sm:flex sm:justify-center sm:space-x-4">
+                <a href="/login"
+                   class="inline-block px-6 py-3 text-lg font-medium text-white bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-700">
+                    Create Your Quiz
+                </a>
+                <a href="/how-it-works"
+                   class="inline-block px-6 py-3 text-lg font-medium text-indigo-600 bg-white border border-indigo-600 rounded-lg shadow-lg hover:bg-gray-50">
+                    Learn More
+                </a>
+            </div>
+        </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-1 p-6">
-        <div class="max-w-4xl mx-auto">
-            <!-- Step 1 -->
-            <div class="bg-white p-6 rounded-lg shadow mb-8 flex items-start">
-                <div class="text-blue-500 text-4xl mr-6">
-                    <i class="fas fa-user-plus"></i>
+    <!-- Features Section -->
+    <section id="features" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Amazing Features</h2>
+            <p class="mt-4 text-lg text-gray-600">Discover the benefits of using our platform to create and share quizzes
+                effortlessly.</p>
+            <div class="mt-10 grid gap-8 md:grid-cols-3">
+                <div class="p-6 bg-indigo-50 rounded-lg shadow hover:shadow-lg">
+                    <h3 class="text-xl font-bold text-indigo-700">Easy to Use</h3>
+                    <p class="mt-2 text-gray-600">Build quizzes in minutes with our simple interface.</p>
                 </div>
-                <div>
-                    <h2 class="text-2xl font-semibold mb-2">Step 1: Sign Up</h2>
-                    <p class="text-gray-600">Create your account by signing up with your email and a secure password. It's quick and easy.</p>
+                <div class="p-6 bg-indigo-50 rounded-lg shadow hover:shadow-lg">
+                    <h3 class="text-xl font-bold text-indigo-700">Track Progress</h3>
+                    <p class="mt-2 text-gray-600">Analyze results to understand your learners better.</p>
                 </div>
-            </div>
-
-            <!-- Step 2 -->
-            <div class="bg-white p-6 rounded-lg shadow mb-8 flex items-start">
-                <div class="text-green-500 text-4xl mr-6">
-                    <i class="fas fa-book-open"></i>
-                </div>
-                <div>
-                    <h2 class="text-2xl font-semibold mb-2">Step 2: Create a Quiz</h2>
-                    <p class="text-gray-600">Design your quizzes with various question types to challenge and engage users.</p>
-                </div>
-            </div>
-
-            <!-- Step 3 -->
-            <div class="bg-white p-6 rounded-lg shadow mb-8 flex items-start">
-                <div class="text-yellow-500 text-4xl mr-6">
-                    <i class="fas fa-share-alt"></i>
-                </div>
-                <div>
-                    <h2 class="text-2xl font-semibold mb-2">Step 3: Share</h2>
-                    <p class="text-gray-600">Share your quizzes with friends or the community to get their responses and feedback.</p>
-                </div>
-            </div>
-
-            <!-- Step 4 -->
-            <div class="bg-white p-6 rounded-lg shadow mb-8 flex items-start">
-                <div class="text-purple-500 text-4xl mr-6">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <div>
-                    <h2 class="text-2xl font-semibold mb-2">Step 4: Analyze Results</h2>
-                    <p class="text-gray-600">Review the results and performance statistics to see how well your quizzes are doing.</p>
+                <div class="p-6 bg-indigo-50 rounded-lg shadow hover:shadow-lg">
+                    <h3 class="text-xl font-bold text-indigo-700">Customizable</h3>
+                    <p class="mt-2 text-gray-600">Personalize quizzes to suit your audience.</p>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
     <!-- Footer -->
-    <footer class="bg-white shadow-sm p-6 text-center">
-        <p class="text-gray-600">&copy; 2025 Quiz App. All rights reserved.</p>
-    </footer>
-</div>
-</body>
-</html>
+<?php require "../resources/views/components/home/footer.php";?>
